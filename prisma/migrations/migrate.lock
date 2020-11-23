@@ -1,0 +1,5 @@
+# Prisma Migrate lockfile v1
+
+20201123033151-add-users-model
+20201123040138-add-password-field-user-model
+20201123072039-add-topic-and-item-models
