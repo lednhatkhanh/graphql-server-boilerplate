@@ -112,6 +112,13 @@
     {
       "tag": "CreateField",
       "model": "User",
+      "field": "password",
+      "type": "String",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "User",
       "field": "createdAt",
       "type": "DateTime",
       "arity": "Required"

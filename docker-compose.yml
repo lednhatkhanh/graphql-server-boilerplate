@@ -2,13 +2,13 @@ version: "3.8"
 
 services:
   postgres:
-    container_name: re_learn_postgres_container
+    container_name: graphql_server_postgres_container
     image: postgres
     environment:
-      POSTGRES_USER: ${POSTGRES_USER:-re-learn}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-re-learn}
+      POSTGRES_USER: ${POSTGRES_USER:-graphql-server}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-graphql-server}
       PGDATA: /data/postgres
-      POSTGRES_DB: re-learn
+      POSTGRES_DB: graphql-server
     volumes:
       - postgres:/data/postgres
     ports:
@@ -18,7 +18,7 @@ services:
     restart: unless-stopped
 
   pgadmin:
-    container_name: re_learn_pgadmin_container
+    container_name: graphql_server_pgadmin_container
     image: dpage/pgadmin4
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-admin@admin.com}
