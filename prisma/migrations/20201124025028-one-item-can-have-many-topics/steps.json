@@ -1,0 +1,61 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "UpdateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Topic",
+          "field": "items"
+        },
+        "directive": "relation"
+      },
+      "argument": "",
+      "newValue": "\"ItemTopics\""
+    },
+    {
+      "tag": "CreateField",
+      "model": "Item",
+      "field": "topics",
+      "type": "Topic",
+      "arity": "List"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "Item",
+          "field": "topics"
+        },
+        "directive": "relation"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Item",
+          "field": "topics"
+        },
+        "directive": "relation"
+      },
+      "argument": "",
+      "value": "\"ItemTopics\""
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Item",
+      "field": "topic"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Item",
+      "field": "topicId"
+    }
+  ]
+}

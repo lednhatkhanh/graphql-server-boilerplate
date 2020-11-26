@@ -1,19 +1,19 @@
-import { mutationField, stringArg } from '@nexus/schema';
+import { mutationField, nonNull, stringArg } from '@nexus/schema';
 import { ForbiddenError } from 'apollo-server-express';
 import bcrypt from 'bcrypt';
 
-import { createToken } from '@/helpers';
+import { token } from '@/helpers';
 
 export const signUp = mutationField('signUp', {
   type: 'AuthResponse',
   nullable: false,
   args: {
-    email: stringArg({ nullable: false }),
-    password: stringArg({ nullable: false }),
-    name: stringArg({ nullable: false }),
+    email: nonNull(stringArg()),
+    password: nonNull(stringArg()),
+    name: nonNull(stringArg()),
   },
   async resolve(_, { email, password, name }, { prisma }) {
-    const existingUser = await prisma.user.findOne({ where: { email } });
+    const existingUser = await prisma.user.findUnique({ where: { email } });
     if (existingUser) {
       throw new ForbiddenError('User with the same email exists.');
     }
@@ -23,6 +23,6 @@ export const signUp = mutationField('signUp', {
       data: { email, password: hashedPassword, name },
     });
 
-    return createToken({ userId: newUser.id });
+    return token.create({ userId: newUser.id });
   },
 });

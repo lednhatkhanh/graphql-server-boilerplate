@@ -1,15 +1,16 @@
-import { mutationField, stringArg } from '@nexus/schema';
+import { mutationField, nonNull, stringArg } from '@nexus/schema';
 import { ForbiddenError } from 'apollo-server-express';
 import bcrypt from 'bcrypt';
+import {} from '@nexus/schema';
 
-import { createToken } from '@/helpers';
+import { token } from '@/helpers';
 
 export const signIn = mutationField('signIn', {
   type: 'AuthResponse',
   nullable: false,
-  args: { email: stringArg({ nullable: false }), password: stringArg({ nullable: false }) },
+  args: { email: nonNull(stringArg()), password: nonNull(stringArg()) },
   async resolve(_, { email, password }, { prisma }) {
-    const user = await prisma.user.findOne({ where: { email } });
+    const user = await prisma.user.findUnique({ where: { email } });
     if (!user) {
       throw new ForbiddenError('Wrong email or password.');
     }
@@ -19,6 +20,6 @@ export const signIn = mutationField('signIn', {
       throw new ForbiddenError('Wrong email or password.');
     }
 
-    return createToken({ userId: user.id });
+    return token.create({ userId: user.id });
   },
 });

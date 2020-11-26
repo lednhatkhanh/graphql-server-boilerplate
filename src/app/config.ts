@@ -7,4 +7,5 @@ dotenv.config({
 
 export const config = {
   TOKEN_SECRET: process.env.TOKEN_SECRET,
+  FRONTEND_URL: process.env.FRONTEND_URL,
 };

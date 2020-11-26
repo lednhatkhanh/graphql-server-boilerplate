@@ -10,7 +10,7 @@ export const me = queryField('me', {
     }
 
     try {
-      const user = await prisma.user.findOne({ where: { id: userId } });
+      const user = await prisma.user.findUnique({ where: { id: userId } });
       if (!user) {
         throw new AuthenticationError('Unauthorized');
       }
